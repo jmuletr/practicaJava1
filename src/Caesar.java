@@ -4,8 +4,8 @@ public class Caesar {
         s = s.toUpperCase();
         StringBuilder s2 = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
-            if (delta > 50){
-                delta = 26 - (delta/25);
+            if (delta > 26){
+                delta = delta % 26;
             }
             if (s.charAt(i) >= 65 && s.charAt(i) <= 90){
                 System.out.println(s.charAt(i));
