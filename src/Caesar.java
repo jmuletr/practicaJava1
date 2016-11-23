@@ -51,6 +51,14 @@ public class Caesar {
     }
 
     static String magic(String s) {
-        return null;
+        s = s.toUpperCase();
+        String s2 = s;
+        for (int i = 1; i < 26; i++) {
+            s2 = decypher(s, i);
+            if (s2.contains(" DE ") || s2.contains(" LA ") || s2.contains(" EL ") || s2.contains(" EN ") || s2.contains(" QUE ") || s2.contains(" ÉS ")){
+                break;
+            }
+        }
+        return s2;
     }
 }
