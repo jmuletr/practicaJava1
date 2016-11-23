@@ -7,6 +7,7 @@ public class Vigenere {
         password = password.toUpperCase();
         StringBuilder s2 = new StringBuilder();
         s = normalitzar(s);
+        password = normalitzar(password);
         int cont = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) >= 0 && s.charAt(i) < 65 || s.charAt(i) > 90){
