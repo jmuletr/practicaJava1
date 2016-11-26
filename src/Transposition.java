@@ -101,10 +101,10 @@ public class Transposition {
         char[][] missatgeord = new char[missatge.length][missatge[0].length];
         int [] ordre = new int[missatge[0].length];
         int cont;
-        for (cont = 0; cont < key.length(); cont++) {
-            for (int i2=0;i2 <= missatge[0].length-1;i2++) {
+        for (int i2=0;i2 <= missatge[0].length-1;i2++) {
+            for (cont = 0; cont < key.length(); cont++) {
                 if (key.charAt(i2) == chars[cont]) {
-                    ordre[cont] = i2;
+                    ordre[i2] = cont;
                     chars[cont] = 0;
                     break;
                 }
@@ -113,7 +113,7 @@ public class Transposition {
         cont = 0;
         for (int x = 0; x < missatge[0].length; x++) {
             for (int y = 0; y < missatge.length; y++) {
-                missatgeord[y][x] = missatge[y][ordre[cont]];
+                missatgeord[y][ordre[cont]] = missatge[y][x];
             }
             cont++;
         }
