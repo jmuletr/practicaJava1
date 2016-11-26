@@ -18,7 +18,6 @@ public class Transposition {
     static String decypher(String s, int dim) {
         StringBuilder s2 = new StringBuilder();
         char[][] missatge = arraymissatgedec(s, dim);
-        System.out.println(Arrays.deepToString(missatge));
         for (int y = 0; y < missatge.length; y++) {
             for (int x = 0; x < missatge[0].length; x++) {
                 if (missatge[y][x] != 0) {
@@ -36,7 +35,7 @@ public class Transposition {
         String sp = key + s;
         char[][] missatge = arraymissatge(sp, key.length());
         for (int x = 0; x < missatge[0].length; x++) {
-            for (int y = 0; y < missatge.length; y++) {
+            for (int y = 1; y < missatge.length; y++) {
                 if (missatge[y][x] != 0) {
                     s2.append(missatge[y][x]);
                 }
@@ -80,16 +79,13 @@ public class Transposition {
         int y = 0;
         while (x < missatgedec[0].length){
             while (y < missatgedec.length){
-                if (pos < s.length() && !(y == missatgedec.length - 1 && x <= (s.length() - missatgedec.length * missatgedec[0].length))){
+                if (pos < s.length() && !(y == missatgedec.length - 1 && x > (missatgedec[0].length - 1) -(missatgedec.length * missatgedec[0].length - s.length()))){
                     missatgedec[y][x]= s.charAt(pos);
                     pos++;
                     y++;
-                    System.out.println(Arrays.deepToString(missatgedec));
-                } else if (y == missatgedec.length - 1 ){
+                } else if (y >= missatgedec.length - 1 ){
                     missatgedec[y][x]= 0;
                     y++;
-                    System.out.println("valor 0: ");
-                    System.out.println(Arrays.deepToString(missatgedec));
                 } else {
                     y++;
                 }
