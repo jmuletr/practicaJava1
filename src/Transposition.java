@@ -32,10 +32,10 @@ public class Transposition {
 
     static String cypher(String s, String key) {
         StringBuilder s2 = new StringBuilder();
-        String sp = key + s;
-        char[][] missatge = arraymissatge(sp, key.length());
+        char[][] missatge = arraymissatge(s, key.length());
+        missatge = ordenar(missatge, key);
         for (int x = 0; x < missatge[0].length; x++) {
-            for (int y = 1; y < missatge.length; y++) {
+            for (int y = 0; y < missatge.length; y++) {
                 if (missatge[y][x] != 0) {
                     s2.append(missatge[y][x]);
                 }
@@ -94,6 +94,30 @@ public class Transposition {
             y = 0;
         }
         return missatgedec;
+    }
+    static char[][] ordenar (char[][] missatge, String key){
+        char[] chars = key.toCharArray();
+        Arrays.sort(chars);
+        char[][] missatgeord = new char[missatge.length][missatge[0].length];
+        int [] ordre = new int[missatge[0].length];
+        int cont;
+        for (cont = 0; cont < key.length(); cont++) {
+            for (int i2=0;i2 <= missatge[0].length-1;i2++) {
+                if (key.charAt(i2) == chars[cont]) {
+                    ordre[cont] = i2;
+                    chars[cont] = 0;
+                    break;
+                }
+            }
+        }
+        cont = 0;
+        for (int x = 0; x < missatge[0].length; x++) {
+            for (int y = 0; y < missatge.length; y++) {
+                missatgeord[y][x] = missatge[y][ordre[cont]];
+            }
+            cont++;
+        }
+        return missatgeord;
     }
 
 }
