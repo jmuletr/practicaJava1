@@ -151,43 +151,47 @@ public class Transposition {
                 missatgeord[y][x] = missatge[y][ordre[x]];
             }
         }
-        System.out.println(Arrays.deepToString(missatgeord));
         return missatgeord;
     }
 
-    static char[][] arraymissatgedeck(String s, int dim, String key) {//TODO arreglar funcio arraymissatgedeck fer posicio original
+    static char[][] arraymissatgedeck(String s, int dim, String key) {
         char[] chars = key.toCharArray();
         Arrays.sort(chars);
         int [] ordre = new int[key.length()];
+        int [] ordreorig = new int[key.length()];
         int cont = 0;
+        //sercam l'ordre alfabetic de la key i l'ordre original.
         for (int i2=0;i2 <= key.length()- 1;i2++) {
             for (cont = 0; cont < key.length(); cont++) {
                 if (key.charAt(i2) == chars[cont]) {
                     ordre[i2] = cont;
                     chars[cont] = 0;
+                    ordreorig[cont] = i2;
                     break;
                 }
             }
         }
 
-            int pos = 0;
-            double dimy = (double) s.length() / dim;
-            if (dimy > s.length() / dim) {
-                dimy++;
-            }
-            char[][] missatge = new char[(int) dimy][dim];
+        int pos = 0;
+        double dimy = (double) s.length() / dim;
+        if (dimy > s.length() / dim) {
+            dimy++;
+        }
+        char[][] missatge = new char[(int) dimy][dim];
+        //ficam el caracter del string al array missatge si no es una de les posicions sobrants del array.
         for (int x = 0; x < missatge[0].length; x++) {
             for (int y = 0; y < missatge.length; y++) {
-                if (!((y == missatge.length - 1) && (ordre[x] >= ordre.length - (missatge.length * missatge[0].length - s.length())))) {
-                        missatge[y][x] = s.charAt(pos);
-                        pos++;
-                    } else {
-                        missatge[y][x] = 0;
-                    }
+                if (!((y == missatge.length - 1) && (ordreorig[x] >= ordre.length - (missatge.length * missatge[0].length - s.length())))) {
+                    missatge[y][x] = s.charAt(pos);
+                    pos++;
+                } else {
+                    missatge[y][x] = 0;
                 }
             }
-        System.out.println(Arrays.deepToString(missatge));
+        }
+        //tornam l'array del missatge..
         return missatge;
     }
+
 
 }
