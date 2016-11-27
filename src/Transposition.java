@@ -48,6 +48,7 @@ public class Transposition {
     static String decypher(String s, String key) {
         StringBuilder s2 = new StringBuilder();
         char[][] missatge = arraymissatgedeck(s, key.length(), key);
+        missatge = ordenar(missatge, key, s);
         for (int y = 0; y < missatge.length; y++) {
             for (int x = 0; x < missatge[0].length; x++) {
                 if (missatge[y][x] != 0) {
@@ -129,7 +130,8 @@ public class Transposition {
         }
         return missatgedes;
     }
-    static char[][] ordenar (char[][] missatge, String key , String s){
+
+    static char[][] ordenar(char[][] missatge, String key, String s) {//TODO arreglar funcio ordenar
         char[] chars = key.toCharArray();
         Arrays.sort(chars);
         char[][] missatgeord = new char[missatge.length][missatge[0].length];
@@ -144,20 +146,11 @@ public class Transposition {
                 }
             }
         }
-        cont = 0;
-        System.out.println(Arrays.toString(ordre));
-        System.out.println(Arrays.deepToString(missatge));
         for (int x = 0; x < missatge[0].length; x++) {
             for (int y = 0; y < missatge.length; y++) {
-                System.out.println(cont);
-                if (ordre[cont] != missatge.length -1 && (x < ordre.length - (missatge.length * missatge[0].length - s.length()))){
-                    missatgeord[ordre[cont]][x] = missatge[ordre[cont]][x];
-                    System.out.println(Arrays.deepToString(missatgeord));
-                    cont++;
-                }
+                missatgeord[y][x] = missatge[y][ordre[x]];
             }
         }
-        System.out.println(Arrays.deepToString(missatgeord));
         return missatgeord;
     }
     static char[][] arraymissatgedeck(String s, int dim, String key){
@@ -181,17 +174,14 @@ public class Transposition {
                 dimy++;
             }
             char[][] missatge = new char[(int) dimy][dim];
+        for (int x = 0; x < missatge[0].length; x++) {
             for (int y = 0; y < missatge.length; y++) {
-                for (int x = 0; x < missatge[0].length; x++) {
-                    System.out.println((ordre[x] >= ordre.length - (missatge.length * missatge[0].length - s.length())));
-                    if (!(y == missatge.length - 1) && ordre[y] < ordre.length - (missatge.length * missatge[0].length - s.length())) {
+                if (!((y == missatge.length - 1) && (ordre[x] >= ordre.length - (missatge.length * missatge[0].length - s.length())))) {
                         missatge[y][x] = s.charAt(pos);
                         pos++;
-                        System.out.println(Arrays.deepToString(missatge));
                     } else {
                         missatge[y][x] = 0;
                         System.out.println("0: ");
-                        System.out.println(Arrays.deepToString(missatge));
                     }
                 }
             }

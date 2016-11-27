@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 public class CaesarTest {
@@ -12,6 +12,7 @@ public class CaesarTest {
         assertEquals("Z", Caesar.cypher("A", 25));
         assertEquals("KLM", Caesar.cypher("ABC", 10));
         assertEquals("WXY", Caesar.cypher("ABC", 100));
+        assertEquals("CJQ", Caesar.cypher("QXE", 12));
         assertEquals("QXE BMFDAZE PQ OAZEGY P’MNMZE PQ XM ODUEU DQZQUJQZ, EQSAZE QXE QJBQDFE, U QX ZMPMX QZ EQDÀ XM BDAHM, MYN X’UZSDQPUQZF MRQSUF PQX NAAY PQX OAYQDÇ QXQOFDÒZUO",
                 Caesar.cypher("Els patrons de consum d’abans de la crisi reneixen, segons els experts, i el Nadal en serà la prova, amb l’ingredient afegit del boom del comerç electrònic", 12));
         assertEquals("LZW USWKSJ UAHZWJ, SDKG CFGOF SK S KZAXL UAHZWJ, AK GFW GX LZW KAEHDWKL XGJEK GX WFUJQHLAGF. AL AK S KMTKLALMLAGF UAHZWJ OZWJW WSUZ DWLLWJ AF LZW GJAYAFSD EWKKSYW (USDDWV LZW HDSAFLWPL) AK JWHDSUWV OALZ S DWLLWJ UGJJWKHGFVAFY LG S UWJLSAF FMETWJ GX DWLLWJK MH GJ VGOF AF LZW SDHZSTWL.",
