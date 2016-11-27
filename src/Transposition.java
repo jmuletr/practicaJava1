@@ -151,6 +151,7 @@ public class Transposition {
                 missatgeord[y][x] = missatge[y][ordre[x]];
             }
         }
+        System.out.println(Arrays.deepToString(missatgeord));
         return missatgeord;
     }
     static char[][] arraymissatgedeck(String s, int dim, String key){
@@ -181,11 +182,10 @@ public class Transposition {
                         pos++;
                     } else {
                         missatge[y][x] = 0;
-                        System.out.println("0: ");
                     }
                 }
             }
-
+        System.out.println(Arrays.deepToString(missatge));
         return missatge;
     }
 
