@@ -131,7 +131,7 @@ public class Transposition {
         return missatgedes;
     }
 
-    static char[][] ordenar(char[][] missatge, String key, String s) {//TODO arreglar funcio ordenar
+    static char[][] ordenar(char[][] missatge, String key, String s) {
         char[] chars = key.toCharArray();
         Arrays.sort(chars);
         char[][] missatgeord = new char[missatge.length][missatge[0].length];
@@ -154,7 +154,8 @@ public class Transposition {
         System.out.println(Arrays.deepToString(missatgeord));
         return missatgeord;
     }
-    static char[][] arraymissatgedeck(String s, int dim, String key){
+
+    static char[][] arraymissatgedeck(String s, int dim, String key) {//TODO arreglar funcio arraymissatgedeck fer posicio original
         char[] chars = key.toCharArray();
         Arrays.sort(chars);
         int [] ordre = new int[key.length()];
