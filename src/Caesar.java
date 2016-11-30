@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 public class Caesar {
     static String cypher(String s, int delta) {
@@ -18,9 +19,16 @@ public class Caesar {
         //Variable s2(string2) on es generara el missatge tractat.
         StringBuilder s2 = new StringBuilder();
         //Bucle per treballar amb tot el string.
+        if (op && key < 0) {
+            op = false;
+            key = key * -1;
+        } else if (!op && key < 0) {
+            op = true;
+            key = key * -1;
+        }
         for (int i = 0; i < s.length(); i++) {
             //fer que delta no sigui major que 26 i es pugui treballar amb ell.
-            if (key > 26) {  //TODO fer que accepti delta negatiu.
+            if (key > 26) {
                 key = key % 26;
             }
             //Comprovacio de si el caracter no es una lletra majuscula
@@ -67,7 +75,8 @@ public class Caesar {
         return s2.toString();
     }
 
-    static String magic(String s) {
+    /** Magic comparant paraules
+        static String magic(String s) {
         s = s.toUpperCase();
         String s2 = s;
         //bucle que s'executara fins al valor maxim de delta per trobarlo.
@@ -81,5 +90,59 @@ public class Caesar {
         }
         //es retorna el string s2.
         return s2;
+    }**/
+
+    static String magic(String s) {
+        //passam s a majuscules
+        s = s.toUpperCase();
+        //es crea un segons string per no editar l'original en cas de tenir que seguir treballant amb ell.
+        String s2;
+        //es crida la funcio per saber el caracter mes usat.
+        char maxchar = getMax(s);
+        //es resta el valor del caracter a 'E' per treure delta
+        int delta = maxchar - 'E';
+        //es desxifra el missatge amb el valor de delta anterior.
+        s2 = decypher(s, delta);
+        //si no s'ha desxifrat correctament es proba amb la resta del caracter menys 'A' com a delta.
+        if (!(s2.contains(" DE ") || s2.contains(" LA ") || s2.contains(" EL ") || s2.contains(" EN ") || s2.contains(" QUE ") || s2.contains(" ÉS "))) {
+            delta = maxchar - 'A';
+            s2 = decypher(s, delta);
+        }
+        //si no s'ha desxifrat correctament es proba amb la resta del caracter menys 'S' com a delta.
+        if (!(s2.contains(" DE ") || s2.contains(" LA ") || s2.contains(" EL ") || s2.contains(" EN ") || s2.contains(" QUE ") || s2.contains(" ÉS "))) {
+            delta = maxchar - 'S';
+            s2 = decypher(s, delta);
+        }
+        //retornam el string desxifrat
+        return s2;
+    }
+
+    public static char getMax(String s) {
+        char[] array = s.toCharArray();
+        int count = 1;
+        int max = 0;
+        char maxChar = 0;
+        //bucle que compara tots els caracters comensant per la posicio 1 i comparanlo amb el caracter de la posicio 0.
+        for(int i=1; i<array.length; i++){
+            //cada vegada que es repeteix el caracter aumenta el contador.
+            if(array[i]==array[i-1]){
+                count++;
+            } else {
+                //a la pasada actual guarda el el nombre maxim que es repeteix el caracter i mira si es el mes repetit.
+                if(count>max){
+                    max=count;
+                    maxChar=array[i-1];
+                }
+                //resetea el contador
+                count = 1;
+            }
+        }
+        if(count>max){
+            max=count;
+            maxChar=array[array.length-1];
+        }
+        //retorna el caracter mes repetit.
+        System.out.println(maxChar);
+        return maxChar;
     }
 }
