@@ -106,7 +106,11 @@ public class Transposition {
         //cream el array del string s de manera vertical.
         while (x < missatgedec[0].length) {
             while (y < missatgedec.length) {
-                if (pos < s.length() && !(y == missatgedec.length - 1 && x > (missatgedec[0].length - 1) - (missatgedec.length * missatgedec[0].length - s.length()))) {
+                /**if que mira que y no sigui la darrera posicio i x no sigui dels darrers per comprobar que
+                   no sigui una posicio sobrant del array.**/
+                if (pos < s.length() && !(y == missatgedec.length - 1 && x >
+                        (missatgedec[0].length - 1) -
+                                (missatgedec.length * missatgedec[0].length - s.length()))) {
                     missatgedec[y][x] = s.charAt(pos);
                     pos++;
                     y++;

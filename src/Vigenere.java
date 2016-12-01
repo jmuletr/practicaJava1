@@ -1,80 +1,80 @@
 
-
 public class Vigenere {
 
     static String encode(String s, String password) {
-        //passam el string de entrada i la password a majuscules.
-        s = s.toUpperCase();
-        password = password.toUpperCase();
-        StringBuilder s2 = new StringBuilder();
-        //cridam la funcio normalitzar per llevar els caracters especials del string i la password.
-        s = normalitzar(s);
-        password = normalitzar(password);
-        //contador que indicara la posicio del index de la password.
-        int cont = 0;
-        //si es un caracter que no sigui una lletra majuscula s'afegeix a s2 directament sense codificar.
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) >= 0 && s.charAt(i) < 65 || s.charAt(i) > 90) {
-                s2.append(s.charAt(i));
-            }
-            //Es codifica de la mateixa manera que al cesar per en aquest cas delta es el valor del caracter corresponent de la password.
-            if (s.charAt(i) >= 65 && s.charAt(i) <= 90) {
-                /**per treure el valor de la password es resta 64 al valor del caracter per exemple si el
-                 caracter es A el seu valor es 65 i 65 - 64 es 1 aixi que delta per al caracter a codificar
-                 valdra 1 despres s'afagiria el valor de ch2 a s2 i s'aumentaria el contador per a pasar al
-                 proxim caracter de la password.**/
-                if (s.charAt(i) + (password.charAt(cont) - 64) > 90) {
-                    char ch = s.charAt(i);
-                    char ch2 = (char) ((int) ch + (password.charAt(cont) - 64) - 26);
-                    s2.append(ch2);
-                    cont++;
-                } else {
-                    char ch = s.charAt(i);
-                    char ch2 = (char) ((int) ch + (password.charAt(cont) - 64));
-                    s2.append(ch2);
-                    cont++;
-                }
-            }
-            /**Aqui es comprova que el contador no sigui major que l'index de la password i si o es el torna
-             a 0 per tornar a comensar per el primer valor de la password.**/
-            if (cont == password.length()) {
-                cont = 0;
-            }
-        }
-        return s2.toString();
+        s = work(s, password, true);
+        //En acabar retorna s encriptat.
+        return s;
     }
 
     static String decode(String s, String password) {
+        s = work(s, password, false);
+        //En acabar retorna s desencriptat.
+        return s;
+    }
+
+    static String work(String s, String password, boolean op) {
+        //Es pasa els String a majuscules i lleva caracters extranys als dos strings.
         s = s.toUpperCase();
         password = password.toUpperCase();
-        StringBuilder s2 = new StringBuilder();
-        s = normalitzar(s);
         password = normalitzar(password);
+        s = normalitzar(s);
+        //Variable s2(string2) on es generara el missatge tractat.
+        StringBuilder s2 = new StringBuilder();
+        //contador que indicara la posicio del index de la password.
         int cont = 0;
+        //Bucle per treballar amb tot el string.
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) >= 0 && s.charAt(i) < 65 || s.charAt(i) > 90) {
+            //Comprovacio de si el caracter no es una lletra majuscula
+            if (s.charAt(i) >= 0 && s.charAt(i) < 'A' || s.charAt(i) > 'Z') {
                 s2.append(s.charAt(i));
             }
-            if (s.charAt(i) >= 65 && s.charAt(i) <= 90) {
-                /**es fa el mateix que per codificar pero es resta el valor de la password i
-                 si es menor que 65(A) se li suma 26 per a que torni al valor 90(Z).**/
-                if (s.charAt(i) - (password.charAt(cont) - 64) < 65) {
-                    char ch = s.charAt(i);
-                    char ch2 = (char) ((int) ch + 26 - (password.charAt(cont) - 64));
-                    s2.append(ch2);
-                    cont++;
-                } else {
-                    char ch = s.charAt(i);
-                    char ch2 = (char) ((int) ch - (password.charAt(cont) - 64));
-                    s2.append(ch2);
-                    cont++;
+            //comprovacio si s'ha de desencriptar o encriptar.
+            if (!op) {
+                //Comprovacio si el caracter es una lletra majuscula
+                if (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z') {
+                    /**Per a descifrar el missatge es mira que el caracter menys delta no sigui menor a 65(A) i
+                     si o es se li suma 26 per tornar a 90(Z).**/
+                    if (s.charAt(i) - (password.charAt(cont) - 64) < 65) {
+                        char ch = s.charAt(i);
+                        char ch2 = (char) ((int) ch + 26 - (password.charAt(cont) - 64));
+                        s2.append(ch2);
+                        cont++;
+                        //si el caracter menys el valor del caracter de la password no es menor a 65(A) se fica directament a s2.
+                    } else {
+                        char ch = s.charAt(i);
+                        char ch2 = (char) ((int) ch - (password.charAt(cont) - 64));
+                        s2.append(ch2);
+                        cont++;
+                    }
+                }
+
+            } else {
+                //Comprovacio si el caracter es una lletra majuscula
+                if (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z') {
+                    /**Si el caracter mes delta es major a 90(Z) es guarda el caracter a ch(character)
+                     i a ch2(character2) es guarda el caracter mes delta i se li resta 26 per a que el valor minim sigui 65(A),
+                     i despres s'afelleix el caracter ch2 a la variable s2.**/
+                    if (s.charAt(i) + (password.charAt(cont) - 64) > 90) {
+                        char ch = s.charAt(i);
+                        char ch2 = (char) ((int) ch + (password.charAt(cont) - 64) - 26);
+                        s2.append(ch2);
+                        cont++;
+                        //Si el valor del caracter mes el valor del caracter de la password
+                        // no pasa de 90(Z) s'afegeix ch2 directament a s2.
+                    } else {
+                        char ch = s.charAt(i);
+                        char ch2 = (char) ((int) ch + (password.charAt(cont) - 64));
+                        s2.append(ch2);
+                        cont++;
+                    }
                 }
             }
             if (cont == password.length()) {
                 cont = 0;
             }
         }
-        //retorna el missatge com a string.
+        //retorna s2 com a string.
         return s2.toString();
     }
 
