@@ -142,7 +142,6 @@ public class Caesar {
             maxChar=array[array.length-1];
         }
         //retorna el caracter mes repetit.
-        System.out.println(maxChar);
         return maxChar;
     }
 }
