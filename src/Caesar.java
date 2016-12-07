@@ -2,12 +2,18 @@ import java.util.HashMap;
 
 public class Caesar {
     static String cypher(String s, int delta) {
+        if (s.isEmpty() || delta == 0) {
+            throw new RuntimeException("Falten parametres o delta es igual a 0");
+        }
         s = work(s, delta, true);
         //En acabar retorna s encriptat.
         return s;
     }
 
     static String decypher(String s, int delta) {
+        if (s.isEmpty() || delta == 0) {
+            throw new RuntimeException("Falten parametres o delta es igual a 0");
+        }
         s = work(s, delta, false);
         //En acabar retorna s desencriptat.
         return s;
@@ -77,6 +83,9 @@ public class Caesar {
 
     /** Magic comparant paraules
         static String magic(String s) {
+         if (s.isEmpty()) {
+            throw new RuntimeException("Falten parametres");
+         }
         s = s.toUpperCase();
         String s2 = s;
         //bucle que s'executara fins al valor maxim de delta per trobarlo.
@@ -93,6 +102,9 @@ public class Caesar {
     }**/
 
     static String magic(String s) {
+        if (s.isEmpty()) {
+            throw new RuntimeException("Falten parametres");
+        }
         //passam s a majuscules
         s = s.toUpperCase();
         //es crea un segons string per no editar l'original en cas de tenir que seguir treballant amb ell.

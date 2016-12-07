@@ -2,6 +2,9 @@ import java.util.Arrays;
 
 public class Transposition {
     static String cypher(String s, int dim) {
+        if (s.isEmpty() || dim < 1) {
+            throw new RuntimeException("Falten parametres");
+        }
         StringBuilder s2 = new StringBuilder();
         //cridam la funcio arraymissatge per generar un array amb el contingut de s i dimensio de x el tamany de dim.
         char[][] missatge = arraymissatge(s, dim);
@@ -18,6 +21,9 @@ public class Transposition {
     }
 
     static String decypher(String s, int dim) {
+        if (s.isEmpty() || dim < 1) {
+            throw new RuntimeException("Falten parametres");
+        }
         StringBuilder s2 = new StringBuilder();
         //es crida la funcio arraymissatgedec(array del missatge decodificat) per crear l'arrai per decodificar el missatge.
         char[][] missatge = arraymissatgedec(s, dim);
@@ -35,6 +41,9 @@ public class Transposition {
 
 
     static String cypher(String s, String key) {
+        if (s.isEmpty() || key.isEmpty()) {
+            throw new RuntimeException("Falten parametres");
+        }
         StringBuilder s2 = new StringBuilder();
         //es fa el mateix per codificar que a l'anterior pero substituint la variable dim per una key(contrasenya).
         char[][] missatge = arraymissatge(s, key.length());
@@ -52,6 +61,9 @@ public class Transposition {
     }
 
     static String decypher(String s, String key) {
+        if (s.isEmpty() || key.isEmpty()) {
+            throw new RuntimeException("Falten parametres");
+        }
         StringBuilder s2 = new StringBuilder();
         //es crida la funcio arraymissatgedeck per crear l'array decodificat amb la key.
         char[][] missatge = arraymissatgedeck(s, key.length(), key);

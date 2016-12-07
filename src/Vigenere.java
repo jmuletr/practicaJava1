@@ -2,12 +2,18 @@
 public class Vigenere {
 
     static String encode(String s, String password) {
+        if (s.isEmpty() || password.isEmpty()) {
+            throw new RuntimeException("Falten parametres");
+        }
         s = work(s, password, true);
         //En acabar retorna s encriptat.
         return s;
     }
 
     static String decode(String s, String password) {
+        if (s.isEmpty() || password.isEmpty()) {
+            throw new RuntimeException("Falten parametres");
+        }
         s = work(s, password, false);
         //En acabar retorna s desencriptat.
         return s;
